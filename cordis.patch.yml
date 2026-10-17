@@ -1,0 +1,26 @@
+# dsh-search bundle patch: one row inserted over whatever layers came before it.
+#
+# A patch replaces the targeted row's whole `config`, so a profile that overrides
+# this row must restate every key it wants to keep.
+#
+# The API key is NOT stored here. Leave `apiKey` empty and the plugin resolves it
+# at call time from, in order: $DEEPSEEK_API_KEY, `~/.secrets/keys.env`,
+# `$DSH_HOME/.credentials.yaml`. That keeps the key out of profile files that get
+# copied, shared, or committed.
+#
+# Every value below has a code-side default, so this patch stays valid on a host
+# that cannot evaluate helpers.
+
+- insert:
+    - id: deepseek-search
+      name: "@vfvrpq/dsh-search"
+      config:
+        apiKey: ""
+        baseUrl: https://api.deepseek.com
+        defaultCount: 5
+        maxContentChars: 8000
+        fetchMaxChars: 20000
+        timeoutMs: 30000
+        maxRetries: 2
+        promptEnabled: true
+        promptOrder: 55

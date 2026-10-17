@@ -1,0 +1,25 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [22, 24]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "${{ matrix.node-version }}"
+      # Unit tests only: they mock fetch, so they never touch the network and
+      # never need an API key. The live self-test in scripts/ stays local.
+      - run: node --test test/*.test.js
+      - name: verify the package tarball carries every lib file
+        run: |
+          npm pack --dry-run --json > pack.json
+          node -e "const f=require('./pack.json')[0].files.map(x=>x.path); const bad=[...f,...[]].filter(p=>p.startsWith('lib/')&&!p.endsWith('.js')&&!p.endsWith('.d.ts')); if(bad.length) {console.error(bad); process.exit(1)} console.log(f.length + ' files packed')"
