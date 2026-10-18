@@ -44,5 +44,6 @@ PASS  fetch returns Markdown body  — title=网页搜索与抓取 chars=6402
 
 - PR：`awesome-dsh-plugin/awesome-dsh-plugin#7732`（2026-10-17 提交，条目 `data/plugins/439436269-ctrl__dsh-search.yml`，category `tools`）。
 - `check`：**success**（schema/引号/README 重生成/重复条目/stale-fork 守卫全过）。
-- `Submission gate`：**failure**，唯一原因是 *repository is 0.0 days old (needs 1)*。按该检查自己的文案，它会定期重跑并在约 24 小时后自动转绿——**不要**重提、不要推空提交、不要关了重开。
+- `Submission gate`：**success**（2026-10-18T12:47Z）。提交当天（2026-10-17）它曾因 *repository is 0.0 days old (needs 1)* 失败，**按该检查自己的文案于约 24 小时后自动转绿**，全程未重提、未推空提交、未关了重开——复跑结论：*All 1 submitted entry passes: `dsh.bundle` declared, repo old enough, enough commits.*
+- 现状（2026-10-18 复核）：`mergeable: true`、`mergeable_state: clean`、diff 单文件 `+6/-0`、0 条评审意见，等维护者合并。
 - 提交流程备注：本地 `submit-market-pr.mjs` 的前置检查把「<1 天」判为硬失败（exit 1），与上游 gate 的「自愈」语义不一致，因此本次按 skill 的手动三步（建分支 → Contents API 落文件 → 开 PR）提交。
